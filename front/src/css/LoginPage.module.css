@@ -1,0 +1,6 @@
+.login {
+  display: flex;
+  justify-content: center; /* горизонтальное центрирование */
+  align-items: center; /* вертикальное центрирование */
+  min-height: 100vh;
+}
