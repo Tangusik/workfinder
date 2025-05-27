@@ -1,13 +1,10 @@
-FROM python:3.12.10-alpine3.21
+FROM python:3.13-slim
 
-WORKDIR /usr/src/workfinder
-
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-RUN pip install --upgrade pip
-
-COPY ./requirements.txt .
-RUN pip install -r requirements.txt
+WORKDIR /back
 
 COPY . .
+
+RUN pip install --no-cache-dir --upgrade -r requirements.txt
+
+CMD ["python", "main.py"]
+
