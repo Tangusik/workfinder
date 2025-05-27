@@ -6,6 +6,7 @@ from fastapi_users import BaseUserManager, IntegerIDMixin
 from core.config import settings
 from core.types.user_id import UserIdType
 from core.models import User
+from mail_sender.sender import send_email_async
 
 if TYPE_CHECKING:
     from fastapi import Request
@@ -28,4 +29,5 @@ class UserManager(IntegerIDMixin, BaseUserManager[User, UserIdType]):
     async def on_after_request_verify(
         self, user: User, token: str, request: Optional["Request"] = None
     ):
+        await send_email_async(email_to=user.email, template_data={'code': token})
         log.warning("Verification requested for user %r. Verification token: %r", user.id, token)

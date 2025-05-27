@@ -43,6 +43,13 @@ class SuperUser(BaseModel):
     default_email: str
     default_password: str
 
+class SmtpData(BaseModel):
+    smtp_host: str
+    smtp_port: int=587
+    smtp_user: str
+    smtp_password: str
+    from_email: str = '<no-reply>@gmail.com'
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file='.env',
@@ -55,5 +62,6 @@ class Settings(BaseSettings):
     db: DBConfig
     access_token: AccessToken
     super_user: SuperUser
+    smtp_data: SmtpData
 
 settings = Settings()
