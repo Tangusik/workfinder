@@ -50,6 +50,12 @@ class SmtpData(BaseModel):
     smtp_password: str
     from_email: str = '<no-reply>@gmail.com'
 
+class CorsData(BaseModel):
+    allowed_origins: list[str] = ['http://localhost:8000',
+                                  'http://localhost:5173',
+                                  'http://localhost',
+                                  'http://127.0.0.1:5173']
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file='.env',
@@ -63,5 +69,6 @@ class Settings(BaseSettings):
     access_token: AccessToken
     super_user: SuperUser
     smtp_data: SmtpData
+    cors_data: CorsData = CorsData()
 
 settings = Settings()

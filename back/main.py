@@ -9,6 +9,8 @@ from core.models import db_helper
 from api import router as api_router
 from actions.create_superuser import create_superuser
 
+from .middlewares import register_middlewares
+
 @asynccontextmanager
 async def lifespan(app):
     #startapp
@@ -18,6 +20,7 @@ async def lifespan(app):
     await db_helper.dispose()
 
 main_app = FastAPI(lifespan= lifespan)
+register_middlewares(app=main_app)
 main_app.include_router(api_router, prefix='')
 
 if __name__ == "__main__":
