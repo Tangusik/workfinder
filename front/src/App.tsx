@@ -1,15 +1,11 @@
-import React from "react";
-import styles from "./css/LoginPage.module.css";
-import LoginForm from "./components/LoginForm";
+import LoginForm from "./components/login_form";
 
-class App extends React.Component {
-  render() {
-    return (
-      <div className={styles.login}>
-        <LoginForm></LoginForm>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div>
+      <LoginForm />
+    </div>
+  );
 }
 
 export default App;
