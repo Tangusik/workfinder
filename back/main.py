@@ -9,7 +9,7 @@ from core.models import db_helper
 from api import router as api_router
 from actions.create_superuser import create_superuser
 
-from .middlewares import register_middlewares
+from middlewares import register_middlewares
 
 @asynccontextmanager
 async def lifespan(app):

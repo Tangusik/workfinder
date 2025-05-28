@@ -18,7 +18,7 @@ async def process_time(request: Request, call_next: Callable[[Request], Awaitabl
 
 def register_middlewares(app:FastAPI):
     app.middleware('http')(process_time)
-    app.middleware('http')(
+    app.add_middleware(
         CORSMiddleware,
         allow_origins= settings.cors_data.allowed_origins,
         allow_methods= ['*'],
