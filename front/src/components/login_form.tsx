@@ -10,10 +10,14 @@ type FieldType = {
 
 const login = (username: string | undefined, password: string | undefined) => {
   axios
-    .post("http://localhost:8000/api/user/auth/login", {
-      username: username,
-      password: password,
-    })
+    .post(
+      "http://localhost:8000/api/user/auth/login",
+      {
+        username: username,
+        password: password,
+      },
+      { headers: { "Content-Type": "application/x-www-form-urlencoded" } }
+    )
     .then((r) => {
       console.log(r.data);
     })
