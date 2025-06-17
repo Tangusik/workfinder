@@ -94,9 +94,12 @@ import {
   Space,
   Typography,
 } from "antd";
-import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
-import { login } from "../api/auth/auth";
+import { LockOutlined, MailOutlined } from "@ant-design/icons";
+import { login } from "../api/auth/login";
+import { register } from "../api/auth/register";
 import { useNavigate } from "react-router-dom";
+
+import { useModal } from "./modals/use_modal";
 
 const { Title } = Typography;
 
@@ -109,7 +112,25 @@ type TabItem = {
 const AuthForm = () => {
   const [activeTab, setActiveTab] = useState("login");
   const [form] = Form.useForm();
+  const [regform] = Form.useForm();
   const navigate = useNavigate();
+
+  const [showModal, modal] = useModal();
+
+  const handleOpenModal = () => {
+    showModal(
+      <div>
+        <p>
+          Для завершения регистрации необходимо подтвердить почту, мы отправили
+          вам сообщение на почту.{" "}
+        </p>
+      </div>,
+      {
+        title: "Регистрация почти закончена",
+        width: 800,
+      }
+    );
+  };
 
   const onFinishLogin = async (values: any) => {
     try {
@@ -122,9 +143,15 @@ const AuthForm = () => {
     }
   };
 
-  const onFinishReg = (values: any) => {
-    message.success(`${"Регистрация успешна"}`);
-    console.log("Received values:", values);
+  const onFinishReg = async (values: any) => {
+    try {
+      await register(values);
+      handleOpenModal();
+      console.log(values);
+    } catch (error) {
+      message.error(`${"Такой пользователь уже существует"}`);
+      form.resetFields();
+    }
   };
 
   const onTabChange = (key: string) => {
@@ -176,18 +203,11 @@ const AuthForm = () => {
       label: "Регистрация",
       children: (
         <Form
-          form={form}
+          form={regform}
           name="register"
           onFinish={onFinishReg}
           layout="vertical"
         >
-          <Form.Item
-            name="name"
-            rules={[{ required: true, message: "Пожалуйста, введите имя!" }]}
-          >
-            <Input prefix={<UserOutlined />} placeholder="Имя" />
-          </Form.Item>
-
           <Form.Item
             name="email"
             rules={[
@@ -234,6 +254,7 @@ const AuthForm = () => {
               Зарегистрироваться
             </Button>
           </Form.Item>
+          {modal}
         </Form>
       ),
     },

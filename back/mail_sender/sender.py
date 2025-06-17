@@ -21,6 +21,10 @@ async def send_email_async(
         template_name: str = 'verify.html'):
 
     template = env.get_template(template_name)
+    link = settings.urls.base_front_link + 'verify/' + template_data['code']
+    template_data = {
+        'link': link
+    }
     html_content = template.render(**template_data)
     
     message = EmailMessage()
