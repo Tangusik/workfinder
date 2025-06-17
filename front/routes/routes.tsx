@@ -3,6 +3,7 @@ import MainPage from "../pages/main";
 import LoginPage from "../pages/login";
 import Page404 from "../pages/page-404";
 import ProtectedRoute from "./protected_route";
+import ProtectedFromAuthed from "./protected_from_authed";
 
 const AppRoutes = () => {
   const navRoutes = [{ path: "/login", element: <LoginPage /> }];
@@ -10,7 +11,11 @@ const AppRoutes = () => {
   return (
     <Routes>
       {navRoutes.map((route) => (
-        <Route key={route.path} path={route.path} element={route.element} />
+        <Route
+          key={route.path}
+          path={route.path}
+          element={<ProtectedFromAuthed>{route.element}</ProtectedFromAuthed>}
+        />
       ))}
 
       <Route>

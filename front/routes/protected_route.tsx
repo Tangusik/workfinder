@@ -6,7 +6,7 @@ const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
   const location = useLocation();
 
   if (!accessToken) {
-    // Перенаправляем на /login, сохраняя текущий путь для возврата после авторизации
+    
     return <Navigate to="/login" state={{ from: location.pathname }} replace />;
   }
 

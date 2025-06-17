@@ -10,8 +10,6 @@ export const login = async (credentials: {
   username: string;
   password: string;
 }): Promise<LoginResponse> => {
-  console.log(credentials);
-
   try {
     const response = await api.post<LoginResponse>(
       "user/auth/login",

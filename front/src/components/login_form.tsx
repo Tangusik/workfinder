@@ -96,6 +96,7 @@ import {
 } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
 import { login } from "../api/auth/auth";
+import { useNavigate } from "react-router-dom";
 
 const { Title } = Typography;
 
@@ -108,10 +109,17 @@ type TabItem = {
 const AuthForm = () => {
   const [activeTab, setActiveTab] = useState("login");
   const [form] = Form.useForm();
+  const navigate = useNavigate();
 
-  const onFinishLogin = (values: any) => {
-    message.success(`${"Вход выполнен"}`);
-    login(values);
+  const onFinishLogin = async (values: any) => {
+    try {
+      let resp = await login(values);
+      console.log(resp);
+      navigate("/");
+    } catch (error) {
+      message.error(`${"Неверный логин или пароль"}`);
+      form.resetFields();
+    }
   };
 
   const onFinishReg = (values: any) => {
