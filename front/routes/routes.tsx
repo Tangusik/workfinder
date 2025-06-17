@@ -2,18 +2,28 @@ import { Route, Routes } from "react-router-dom";
 import MainPage from "../pages/main";
 import LoginPage from "../pages/login";
 import Page404 from "../pages/page-404";
+import ProtectedRoute from "./protected_route";
 
 const AppRoutes = () => {
-  const navRoutes = [
-    { path: "/", element: <MainPage /> },
-    { path: "/login", element: <LoginPage /> },
-    { path: "*", element: <Page404 /> },
-  ];
+  const navRoutes = [{ path: "/login", element: <LoginPage /> }];
+  const navRoutesProtected = [{ path: "/", element: <MainPage /> }];
   return (
     <Routes>
       {navRoutes.map((route) => (
         <Route key={route.path} path={route.path} element={route.element} />
       ))}
+
+      <Route>
+        {navRoutesProtected.map((route) => (
+          <Route
+            key={route.path}
+            path={route.path}
+            element={<ProtectedRoute>{route.element}</ProtectedRoute>}
+          />
+        ))}
+      </Route>
+
+      <Route path="*" element={<Page404 />} />
     </Routes>
   );
 };

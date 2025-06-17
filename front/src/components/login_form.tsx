@@ -95,6 +95,7 @@ import {
   Typography,
 } from "antd";
 import { UserOutlined, LockOutlined, MailOutlined } from "@ant-design/icons";
+import { login } from "../api/auth/auth";
 
 const { Title } = Typography;
 
@@ -108,10 +109,13 @@ const AuthForm = () => {
   const [activeTab, setActiveTab] = useState("login");
   const [form] = Form.useForm();
 
-  const onFinish = (values: any) => {
-    message.success(
-      `${activeTab === "login" ? "Вход выполнен" : "Регистрация успешна"}`
-    );
+  const onFinishLogin = (values: any) => {
+    message.success(`${"Вход выполнен"}`);
+    login(values);
+  };
+
+  const onFinishReg = (values: any) => {
+    message.success(`${"Регистрация успешна"}`);
     console.log("Received values:", values);
   };
 
@@ -125,9 +129,14 @@ const AuthForm = () => {
       key: "login",
       label: "Вход",
       children: (
-        <Form form={form} name="login" onFinish={onFinish} layout="vertical">
+        <Form
+          form={form}
+          name="login"
+          onFinish={onFinishLogin}
+          layout="vertical"
+        >
           <Form.Item
-            name="email"
+            name="username"
             rules={[
               { required: true, message: "Пожалуйста, введите email!" },
               { type: "email", message: "Некорректный email" },
@@ -158,7 +167,12 @@ const AuthForm = () => {
       key: "register",
       label: "Регистрация",
       children: (
-        <Form form={form} name="register" onFinish={onFinish} layout="vertical">
+        <Form
+          form={form}
+          name="register"
+          onFinish={onFinishReg}
+          layout="vertical"
+        >
           <Form.Item
             name="name"
             rules={[{ required: true, message: "Пожалуйста, введите имя!" }]}

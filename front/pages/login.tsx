@@ -1,7 +1,8 @@
-import { Typography } from "antd"
+
+import AuthForm from "../src/components/login_form";
 
 const LoginPage = () => {
-    return <Typography.Title level={4}>Вход</Typography.Title>
-}
+  return <AuthForm />;
+};
 
-export default LoginPage
+export default LoginPage;
