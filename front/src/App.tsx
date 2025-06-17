@@ -1,11 +1,7 @@
-import LoginForm from "./components/login_form";
+import AppRoutes from "../routes/routes";
 
 function App() {
-  return (
-    <div>
-      <LoginForm />
-    </div>
-  );
+  return <AppRoutes />;
 }
 
 export default App;

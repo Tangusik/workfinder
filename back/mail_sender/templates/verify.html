@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html>
-<body>
+  <body>
     <h2>Подтверждение email</h2>
-    <p>Ваш код подтверждения: <strong>{{ code }}</strong></p>
+    <form action="{{ link }}">
+      <button>Подтвердить почту</button>
+    </form>
     <p>Код действителен 10 минут.</p>
-</body>
+  </body>
 </html>

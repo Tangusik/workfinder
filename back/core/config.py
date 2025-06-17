@@ -56,6 +56,9 @@ class CorsData(BaseModel):
                                   'http://localhost',
                                   'http://127.0.0.1:5173']
 
+class URLs(BaseModel):
+    base_front_link: str = 'http://localhost:5173/'
+
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(
         env_file='.env',
@@ -70,5 +73,6 @@ class Settings(BaseSettings):
     super_user: SuperUser
     smtp_data: SmtpData
     cors_data: CorsData = CorsData()
+    urls: URLs = URLs()
 
 settings = Settings()
