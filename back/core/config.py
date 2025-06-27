@@ -51,13 +51,10 @@ class SmtpData(BaseModel):
     from_email: str = '<no-reply>@gmail.com'
 
 class CorsData(BaseModel):
-    allowed_origins: list[str] = ['http://localhost:8000',
-                                  'http://localhost:5173',
-                                  'http://localhost',
-                                  'http://127.0.0.1:5173']
+    allowed_origins: list[str] = ["*"]
 
 class URLs(BaseModel):
-    base_front_link: str = 'http://localhost:5173/'
+    base_front_link: str = 'http://localhost/'
 
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(

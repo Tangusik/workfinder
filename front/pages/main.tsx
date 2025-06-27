@@ -35,6 +35,7 @@ import {
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../src/api/auth/logout";
 
 const { Header, Sider, Content, Footer } = Layout;
 const { Title, Text } = Typography;
@@ -117,9 +118,9 @@ const DashboardPage: React.FC = () => {
     console.log("Menu item clicked:", e.key);
   };
 
-  const onUserMenuClick: MenuProps["onClick"] = (e) => {
+  const onUserMenuClick: MenuProps["onClick"] = async (e) => {
     if (e.key === "logout") {
-      // Обработка выхода
+      await logout();
       navigate("/login");
     }
   };
